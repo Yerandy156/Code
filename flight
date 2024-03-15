@@ -1,0 +1,94 @@
+local check -- "N/A_S"
+Animation4 = Instance.new("Animation")
+Animation4.Name = "Hover"
+Animation4.Parent = game.Workspace
+Animation4.AnimationId = "http://www.roblox.com/asset/?id=14776792514/"
+Animation6 = Instance.new("Animation")
+Animation6.Name = "Fly"
+Animation6.Parent = game.Workspace
+Animation6.AnimationId = "http://www.roblox.com/asset/?id=14776776437/"
+Tool0 = Instance.new("Tool")
+Tool0.Name = "Fly"
+Tool0.Parent = game.Players.LocalPlayer.Backpack
+Tool0.CanBeDropped = false
+Tool0.RequiresHandle = false
+repeat wait()
+local u1 = false
+local u2 = game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):LoadAnimation(game.Workspace.Hover)
+local u3 = nil
+local u4 = nil
+local u5 = false
+local u6 = false
+local u7 = game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):LoadAnimation(game.Workspace.Fly)
+Tool0.Equipped:connect(function(p1)
+p1.TargetFilter = workspace
+u1 = true
+u2:Play()
+u3 = Instance.new("BodyGyro")
+u3.Name = "N/A_S"
+u3.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+u3.MaxTorque = Vector3.new(30000, 0, 30000)
+u3.P = u3.P * 5
+u3.CFrame = CFrame.new(0, 0, 0)
+u4 = Instance.new("BodyPosition")
+u4.Name = "N/A_S"
+u4.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+u4.MaxForce = Vector3.new(60000, 60000, 60000)
+u4.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+p1.Button1Down:connect(function()
+if u5 then
+return
+end
+u5 = true
+u6 = true
+u7:Play()
+local v5 = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
+v5.MaxForce = Vector3.new(50000, 50000, 50000)
+v5.Velocity = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.p, p1.Hit.p).lookVector * 85
+v5.Name = "N/A_S"
+u3.MaxTorque = Vector3.new(30000, 30000, 30000)
+u3.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.p, p1.Hit.p)
+u4.Parent = nil
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").AutoRotate = false
+if u2.IsPlaying then
+u2:Stop()
+end
+while u6 do
+v5.Velocity = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.p, p1.Hit.p).lookVector * 85
+u3.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.p, p1.Hit.p)
+game:GetService("RunService").Heartbeat:wait()
+end
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").AutoRotate = true
+v5:Destroy()
+if u4 ~= nil then
+u4.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+u4.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+end
+if u3 ~= nil then
+u3.MaxTorque = Vector3.new(30000, 0, 30000)
+u3.CFrame = CFrame.new(0, 0, 0)
+end
+u6 = false
+if u1 then
+u2:Play()
+end
+u7:Stop()
+wait(0.3)
+u5 = false
+end)
+p1.Button1Up:connect(function()
+u6 = false
+end)
+end)
+Tool0.Unequipped:connect(function()
+u1 = false
+u6 = false
+u3:Destroy()
+u3 = nil
+u4:Destroy()
+u4 = nil
+if u2.IsPlaying then
+u2:Stop()
+end
+end)
+until game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
